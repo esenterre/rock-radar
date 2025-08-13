@@ -29,7 +29,7 @@
     <!-- RockRadar v<?= $RRVersion ?> by Éric Senterre aka Harkayn ( eric at senterre.com ) -->
   </head>
 
-<body onload="checkDevSite();">
+<body>
 
 <div class='page_title'>
     <img src="images/rockradar.png" /><br />
