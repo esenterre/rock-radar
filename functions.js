@@ -94,10 +94,14 @@ function saveTotalYield() {
 }
 
 // Appel des fonctions au chargement de la page
-window.onload = function() {
+window.addEventListener('load', function() {
+    checkDevSite();
     loadTotalYield(); // Charge la valeur du champ depuis le stockage local
-    document.getElementById('totalYield').addEventListener('change', saveTotalYield); // Enregistre la valeur du champ dans le stockage local lorsque celle-ci change
-};
+    var totalYieldInput = document.getElementById('totalYield');
+    if (totalYieldInput) {
+        totalYieldInput.addEventListener('change', saveTotalYield); // Enregistre la valeur du champ dans le stockage local lorsque celle-ci change
+    }
+});
 
 
 
