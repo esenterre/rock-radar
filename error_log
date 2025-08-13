@@ -1,0 +1,65 @@
+[13-Jan-2024 11:16:01 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[15-Jan-2024 06:23:48 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[16-Jan-2024 10:54:04 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[16-Jan-2024 10:54:06 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[16-Jan-2024 10:54:36 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[16-Jan-2024 10:54:37 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[16-Jan-2024 19:21:45 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[16-Jan-2024 19:21:47 UTC] PHP Fatal error:  Uncaught TypeError: count(): Argument #1 ($value) must be of type Countable|array, bool given in /home/harkayno/rr/index.php:73
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 73
+[19-Jan-2024 12:01:04 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function str_starts_with() in /home/harkayno/rr/index.php:415
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 415
+[19-Jan-2024 12:01:22 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function str_starts_with() in /home/harkayno/rr/index.php:415
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 415
+[19-Jan-2024 12:01:28 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function str_starts_with() in /home/harkayno/rr/index.php:415
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 415
+[19-Jan-2024 12:01:36 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function str_starts_with() in /home/harkayno/rr/index.php:415
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 415
+[19-Jan-2024 12:47:29 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function str_starts_with() in /home/harkayno/rr/index.php:415
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 415
+[19-Jan-2024 12:51:20 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function str_starts_with() in /home/harkayno/rr/index.php:415
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/rr/index.php on line 415
+[02-Apr-2024 15:36:27 UTC] PHP Parse error:  syntax error, unexpected 'l' (T_STRING), expecting ';' or ',' in /home/harkayno/devrr/index.php on line 414
+[02-Apr-2024 15:36:28 UTC] PHP Parse error:  syntax error, unexpected 'l' (T_STRING), expecting ';' or ',' in /home/harkayno/devrr/index.php on line 414
+[29-Apr-2024 21:43:10 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function calculateEtaFromLastTwoSurveys() in /home/harkayno/devrr/index.php:503
+Stack trace:
+#0 {main}
+  thrown in /home/harkayno/devrr/index.php on line 503
+[14-Dec-2024 13:30:27 UTC] PHP Parse error:  syntax error, unexpected '<', expecting end of file in /home/harkayno/devrr/functions.php on line 11
+[14-Dec-2024 13:30:36 UTC] PHP Parse error:  syntax error, unexpected '<', expecting end of file in /home/harkayno/devrr/functions.php on line 11
+[14-Dec-2024 13:31:17 UTC] PHP Parse error:  syntax error, unexpected '<', expecting end of file in /home/harkayno/devrr/functions.php on line 11

@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^rr/a/([a-zA-Z0-9]+)$ rr/index.php?session=$1 [L]

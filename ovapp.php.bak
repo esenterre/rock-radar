@@ -1,0 +1,345 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@300&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500&display=swap" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel= "stylesheet" type="text/css" href="/style.css" />
+    <title>OreVision</title>
+  </head>
+
+<body>
+
+<div class='page_title'>
+    <img src="/images/orevision.png" /><br />
+    Mining fleet log viewer
+</div>
+<br />
+<?php
+
+// phpinfo();
+
+function customErrorHandler($errno, $errstr, $errfile, $errline) {
+    #echo "<b>Error:</b> [$errno] $errstr<br>";
+    #echo "Error on line $errline in $errfile<br>";
+}
+
+set_error_handler("customErrorHandler", E_ALL);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' || $_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    if (isset($_FILES['file']) || $_SERVER['REQUEST_METHOD'] === 'GET') {
+
+    /*  echo"<pre>";
+      var_dump($_SERVER);
+      echo "----\n";
+      var_dump($_GET);
+      echo"</pre>";
+    */
+
+      // Using $_SERVER['argv'] instead of $_GET['log']
+
+      if ($_SERVER['REQUEST_METHOD'] === 'GET') { 
+        $file['error'] = UPLOAD_ERR_OK;
+
+        if (isset($_GET['log'])) {
+            $uniqueID = $_GET['log'];
+        } else {
+            // echo "Invalid request";
+            goto exit_to_footer;
+            die;
+        }
+        $file = array($uniqueID.".txt");
+
+      } else {
+        $file = $_FILES['file'];
+      }
+
+      if ($file['error'] === UPLOAD_ERR_OK || $_SERVER['REQUEST_METHOD'] === 'GET') {
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Check if the uploaded file is a text file 
+            $mime_type = mime_content_type($file['tmp_name']);
+            if ($mime_type !== 'text/plain') {
+                die("Error: Only text files are allowed.");
+            }
+
+            $uniqueID = uniqid();
+            $filename = "log_".$uniqueID.".txt";
+            move_uploaded_file($file['tmp_name'], "fleetLogs/".$filename);
+        } else {
+            $filename = "log_".$uniqueID.".txt";
+        }
+
+
+        // Read the log file into an array
+        $log = file("fleetLogs/".$filename);
+
+        // List of RAW Material (Ore Mining / Ice Harvesting / Moon Ores)
+        $material = array("Arkonor", "Bezdnacine", "Bistot", "Crokite", "Dark Ochre", "Ducinium", "Eifyrium", "Gneiss", "Hedbergite", "Hemorphite", "Jaspet", "Kernite", "Mercoxit", "Mordunium", "Omber", "Plagioclase", "Pyroxeres", "Rakovene", "Scordite", "Spodumain", "Talassonite", "Veldspar", "Ytirium",
+                      "Blue Ice", "Clear Icicle", "Dark Glitter", "Gelidus", "Glacial Mass", "Glare Crust", "Krystallos", "White Glaze",
+                      "Bitumens", "Carnotite", "Chromite", "Cinnabar", "Cobaltite", "Coesite", "Euxenite", "Loparite", "Monazite", "Otavite", "Pollucite", "Scheelite", "Sperrylite", "Sylvite", "Titanite", "Vanadinite", "Xenotime", "Ytterbite", "Zeolites", "Zircon" 
+                    );
+
+        // Initialize an array to hold the loot data
+        $loot_data = array();
+
+        // Loop through each line of the log file
+        foreach ($log as $line) {
+            // Split the line into an array of values
+            $values = explode("\t", $line);
+
+            // Extract the relevant values
+            $time = $values[0];
+            $character = $values[1];
+            $item_type = $values[2];
+            $quantity = intval($values[3]);
+            //$item_group = $values[4];
+
+            // Check if line have valid time code, otherwise skip it
+            $format = "Y.m.d H:i";
+            $date = DateTime::createFromFormat($format, $time);
+            $errors = DateTime::getLastErrors();
+            
+            if ($errors['warning_count'] === 0 && $errors['error_count'] === 0) {
+
+                // create DateTime objects
+                $datetime = DateTime::createFromFormat('Y.m.d H:i', $time);
+                $start_datetime = DateTime::createFromFormat('Y.m.d H:i', $start_time);
+                $end_datetime = DateTime::createFromFormat('Y.m.d H:i', $end_time);
+
+                // Set start/end times
+                if (!isset($end_time))   { $end_time=$time; }
+                if (!isset($start_time)) { $start_time=$time; }
+
+                if ($datetime > $end_datetime) {
+                  $end_time=$time;
+                }
+                if ($datetime < $start_datetime) {
+                  $start_time=$time;
+                }
+
+                // Check if $item_type is one of the ore
+                foreach ($material as $item) {
+
+                    if ((strpos($item_type, $item) !== false)) {
+                        // $item_type is present in $item
+
+                        // Remove "Compressed " from $item_type
+                        //$item_type = str_replace("Compressed ", "", $item_type);
+                        if (strpos($item_type, "Compressed ") !== false) {
+                          break;
+                        }
+
+                        // Check if this character is already in the loot data array
+                        if (isset($loot_data[$character])) {
+                            // If so, update their existing data
+                            if (isset($loot_data[$character][$item_type])) {
+                                $loot_data[$character][$item_type] += $quantity;
+                            } else {
+                                $loot_data[$character][$item_type] = $quantity;
+                            }
+                        } else {
+                            // If not, add a new entry for this character
+                            $loot_data[$character] = array($item_type => $quantity);
+                            // Counter for the total number of miners
+                            $total_miners++;
+                        }
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Sort array by name
+        ksort($loot_data, SORT_FLAG_CASE | SORT_STRING);
+
+        // Find all unique item types
+        $item_types = array();
+        foreach ($loot_data as $character_data) {
+            $item_types = array_merge($item_types, array_keys($character_data));
+        }
+        $item_types = array_unique($item_types);
+
+        // Generate the HTML table
+        echo "<center><table>\n";
+        echo "<thead>\n";
+        echo "<tr>\n";
+        echo "<th>Miner</th>\n";
+
+        // sort $item_types by the last word of the item
+        ksort($item_types);
+
+        // Define a custom comparison function that extracts the last word of each item
+        function compare_last_word($a, $b) {
+
+          $a_has_two_words = true;
+          $b_has_two_words = true;
+
+            $a_last_word = substr(strrchr($a, " "), 1);
+            if ($a_last_word == "") { 
+              $a_last_word="$a"; 
+              $a_has_two_words = false;
+            }
+            $b_last_word = substr(strrchr($b, " "), 1);
+            if ($b_last_word == "") { 
+              $b_last_word="$b"; 
+              $b_has_two_words = false;
+            }
+
+            return strcmp($a_last_word, $b_last_word);
+        }
+
+        // Sort the array using the custom comparison function
+        usort($item_types, "compare_last_word");        
+
+        foreach ($item_types as $item_type) {
+            echo "<th>$item_type</th>\n";
+        }
+        echo "<th>Total</th>\n";
+        echo "</tr>\n";
+        echo "</thead>\n";
+
+        // Initialize an array to hold the totals for each item type
+        $item_type_totals = array_fill_keys($item_types, 0);
+
+        echo "<tbody>\n";
+        foreach ($loot_data as $character => $character_data) {
+            $table_line++;
+            if ($table_line % 2 ==0) {
+                $class = "even";
+            } else {
+                $class = "odd";
+            }
+            echo "<tr class='$class'>\n";
+            // Replace space by &nbps; in $character name to avoid wordwrapping in this column
+            $character = str_replace(" ", "&nbsp;", $character);
+            echo "<td class='character'>$character</td>\n";
+            $total_all_types = 0;
+            foreach ($item_types as $item_type) {
+                $quantity = isset($character_data[$item_type]) ? $character_data[$item_type] : 0;
+                $total_all_types += $quantity;
+                $formatted_quantity = number_format($quantity, 0, '.', ' ');
+                echo "<td class='quantity'>$formatted_quantity</td>\n";
+                $item_type_totals[$item_type] += $quantity; // Increment the total for this item type
+            }
+            $formatted_total_all_types = number_format($total_all_types, 0, '.', '&nbsp;');
+            echo "<td class='totals'>$formatted_total_all_types</td>";
+            echo "</tr>\n";
+        }
+        echo "</tbody>\n";
+
+        echo "<tfoot>\n";
+        echo "<tr>\n";
+        echo "<td class='character'>$total_miners Miners</td>\n";
+        $big_total = 0;
+        foreach ($item_types as $item_type) {
+            $total = $item_type_totals[$item_type];
+            $big_total += $total;
+            $formatted_total = number_format($total, 0, '.', '&nbsp;');
+            echo "<td class='totals'>$formatted_total</td>\n";
+        }
+        $formatted_big_total = number_format($big_total, 0, '.', '&nbsp;');
+        echo "<td class='totals big_total'>$formatted_big_total</td>";
+        echo "</tr>\n";
+        echo "</tfoot>\n";
+        echo "</table>\n";
+
+        // create DateTime objects
+        $start_datetime = DateTime::createFromFormat('Y.m.d H:i', $start_time);
+        $end_datetime = DateTime::createFromFormat('Y.m.d H:i', $end_time);
+
+        // calculate the difference
+        $duration = $end_datetime->diff($start_datetime);
+
+        // Averages
+        $duration_in_sec = ($duration->h * 3600) + ($duration->i * 60) + ($duration->s);
+        $units_per_sec = $big_total / $duration_in_sec;
+        $units_per_sec_miner = $units_per_sec / $total_miners;
+
+        echo "<table>";
+        echo "<tr><td class='character'>Start time</td><td>$start_time</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Average units/s</td><td>".number_format($units_per_sec,1)."</td></tr>";
+        echo "<tr><td class='character'>End time</td><td>$end_time</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Average unit/s/miners</td><td>".number_format($units_per_sec_miner,1)."</td></tr>";
+        echo "<tr><td class='character'>Duration</td><td>". $duration->h . " hours " . $duration->i . " minutes</td><td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td><td>Best yielder</td><td></td></tr>";
+        echo "</table>";
+
+        echo "</table></center>\n";
+
+        } else {
+          echo "<p>File upload failed. Error code: {$file['error']}</p>";
+        }
+    } else {
+      echo "<p>No file uploaded.</p>";
+    }
+  }
+  
+  exit_to_footer:
+
+?>
+
+<br/><br/>
+<center>
+<?php
+    if (isset($uniqueID)) {
+        echo "<a href='/ovapp.php?log=$uniqueID' class='permalink'>Permalink</a>";
+    }
+?>
+
+<br /><br />
+<form method="post" enctype="multipart/form-data" id="upload-form" action="ovapp.php" >
+  
+  <input type="file" name="file" id="file-input" style="display:none;" accept=".txt">
+
+  <div id="drop_zone" class="dropzone">Drop your Fleet Log file here<br />or click here to select one</div>
+  <input type="hidden" name="file_dropped" id="file_dropped" value="0">
+  <div class="Explanation">
+    <ul>
+        <li>Please open Fleet window, select Export Fleet Loot History</li>
+        <li>Find the exported file in My Documents\EVE\logs\Fleet</li>
+        <li>must be something like <font color="orange">Loot - YYYY.MM.DD HH.mm.SS.txt</font></li>
+    </ul>
+  </div>
+  
+  <script>
+    document.getElementById("drop_zone").addEventListener("dragover", function(event) {
+        event.preventDefault();
+    });
+
+    document.getElementById("drop_zone").addEventListener("drop", function(event) {
+        event.preventDefault();
+        var files = event.dataTransfer.files;
+        // traitez les fichiers ici...
+        document.getElementById("file_dropped").value = "1";
+        document.getElementById("file-input").files = files;
+        document.getElementById("upload-form").submit();
+    });
+
+    document.getElementById("drop_zone").addEventListener("click", function(event) {
+        event.preventDefault();
+        document.getElementById("file-input").click();
+    });
+
+    document.getElementById("file-input").addEventListener("change", function(event) {
+        event.preventDefault();
+        var files = event.target.files;
+        // traitez les fichiers ici...
+        document.getElementById("file_dropped").value = "1";
+        document.getElementById("upload-form").submit();
+    });    
+
+  </script>
+</form>
+</center>
+
+<br/>
+&copy;2023 Harkayn
+
+
+<!--
+ToDo:
+File path validation: Ensure that the uploaded file is saved in the intended upload directory and that the path is valid. Use the PHP function realpath() to resolve any relative paths and check that the resulting path is within the intended directory.
+Input validation: Validate the contents of the uploaded file before processing it. Use PHP functions such as filter_var() or regular expressions to ensure that the data is in the expected format and does not contain malicious code.
+-->
+

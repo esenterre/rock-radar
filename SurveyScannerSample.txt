@@ -1,0 +1,64 @@
+Concentrated Veldspar	69 647	6 964 m3	14 km
+Concentrated Veldspar	13 612	1 361 m3	17 km
+Concentrated Veldspar	87 219	8 721 m3	18 km
+Concentrated Veldspar	87 404	8 740 m3	18 km
+Concentrated Veldspar	78 020	7 802 m3	18 km
+Concentrated Veldspar	62 499	6 249 m3	18 km
+Concentrated Veldspar	98 480	9 848 m3	18 km
+Concentrated Veldspar	69 714	6 971 m3	18 km
+Concentrated Veldspar	14 608	1 460 m3	18 km
+Concentrated Veldspar	25 306	2 530 m3	19 km
+Concentrated Veldspar	109 450	10 945 m3	19 km
+Concentrated Veldspar	106 900	10 690 m3	19 km
+Concentrated Veldspar	92 694	9 269 m3	19 km
+Concentrated Veldspar	100 446	10 044 m3	19 km
+Concentrated Veldspar	112 278	11 227 m3	19 km
+Concentrated Veldspar	96 380	9 638 m3	19 km
+Concentrated Veldspar	52 190	5 219 m3	20 km
+Concentrated Veldspar	84 601	8 460 m3	20 km
+Concentrated Veldspar	108 404	10 840 m3	20 km
+Concentrated Veldspar	58 747	5 874 m3	20 km
+Concentrated Veldspar	36 009	3 600 m3	20 km
+Concentrated Veldspar	108 358	10 835 m3	21 km
+Condensed Scordite	32 822	4 923 m3	18 km
+Condensed Scordite	23 198	3 479 m3	18 km
+Condensed Scordite	27 922	4 188 m3	18 km
+Condensed Scordite	48 754	7 313 m3	18 km
+Condensed Scordite	63 584	9 537 m3	18 km
+Condensed Scordite	39 198	5 879 m3	19 km
+Condensed Scordite	13 210	1 981 m3	19 km
+Condensed Scordite	48 938	7 340 m3	19 km
+Condensed Scordite	56 222	8 433 m3	19 km
+Condensed Scordite	47 614	7 142 m3	19 km
+Condensed Scordite	52 110	7 816 m3	19 km
+Condensed Scordite	35 581	5 337 m3	19 km
+Condensed Scordite	8 494	1 274 m3	20 km
+Condensed Scordite	66 572	9 985 m3	20 km
+Condensed Scordite	29 174	4 376 m3	20 km
+Condensed Scordite	47 868	7 180 m3	20 km
+Condensed Scordite	54 988	8 248 m3	21 km
+Dense Veldspar
+Dense Veldspar	28 717	2 871 m3	18 km
+Dense Veldspar	22 108	2 210 m3	18 km
+Dense Veldspar	24 055	2 405 m3	20 km
+Solid Pyroxeres
+Solid Pyroxeres	7 438	2 231 m3	19 km
+Solid Pyroxeres	10 450	3 135 m3	19 km
+Solid Pyroxeres	410	123 m3	19 km
+Solid Pyroxeres	18 046	5 413 m3	19 km
+Solid Pyroxeres	16 240	4 872 m3	20 km
+Solid Pyroxeres	10 933	3 279 m3	20 km
+Solid Pyroxeres	15 840	4 752 m3	21 km
+Veldspar
+Veldspar	70 548	7 054 m3	17 km
+Veldspar	113 094	11 309 m3	17 km
+Veldspar	74 393	7 439 m3	18 km
+Veldspar	87 031	8 703 m3	18 km
+Veldspar	75 529	7 552 m3	18 km
+Veldspar	52 442	5 244 m3	19 km
+Veldspar	73 398	7 339 m3	19 km
+Veldspar	36 780	3 678 m3	19 km
+Veldspar	52 814	5 281 m3	19 km
+Veldspar	67 428	6 742 m3	19 km
+Veldspar	115 200	11 520 m3	19 km
+Veldspar	75 242	7 524 m3	21 km

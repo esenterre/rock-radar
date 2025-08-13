@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    .copy-icon {
+      cursor: pointer;
+    }
+
+    .no-animation {
+      animation: none !important;
+    }
+
+    @keyframes fadeInOut {
+      0% { opacity: 1; }
+      50% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+  </style>
+</head>
+<body>
+
+  <div onclick="animateCopyIcon(this)">
+    Some Text <span class="copy-icon">📋</span>
+  </div>
+
+  <div onclick="animateCopyIcon(this)">
+    Another Text <span class="copy-icon">📋</span>
+  </div>
+
+  <script>
+    function animateCopyIcon(container) {
+      const copyIcon = container.querySelector('.copy-icon');
+
+      // Add a class to enable the animation
+      copyIcon.classList.remove('no-animation');
+
+      // Trigger reflow to ensure initial opacity is applied before animation
+      copyIcon.offsetHeight;
+
+      // Show the checkmark animation
+      copyIcon.innerHTML = '✅';
+      copyIcon.style.animation = 'fadeInOut 1s ease-out';
+
+      // Reset the animation after a delay (1.5 seconds in this example)
+      setTimeout(() => {
+        copyIcon.style.animation = 'none';
+
+        // Remove the class to disable the animation
+        copyIcon.classList.add('no-animation');
+
+        // Restore the original icon
+        copyIcon.innerHTML = '📋';
+      }, 1500);
+    }
+  </script>
+</body>
+</html>
